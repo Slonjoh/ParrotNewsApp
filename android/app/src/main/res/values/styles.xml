@@ -5,7 +5,11 @@
         <item name="android:windowBackground">@color/white</item>
     </style>
 
+    <!-- Splash Screen Theme -->
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_screen</item> <!-- Add your splash drawable here -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- fOr a solid color -->
+        <!-- <item name="android:windowBackground">@color/your_splash_color</item> -->
     </style>
+
 </resources>
