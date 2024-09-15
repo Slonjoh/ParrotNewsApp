@@ -1,32 +1,17 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
-import LottieAnimation from './components/LottieAnimation';
-
+import React from 'react';
+import { Provider as ReduxProvider } from 'react-redux';
+import { Provider as PaperProvider } from 'react-native-paper';
+import store from './store/store';
+import Navigation from './navigation/Navigation'; // serves as main component
 
 const App = () => {
-  useEffect(() => {
-    SplashScreen.hide(); // Hide the splash screen when the app starts
-  }, []);
-
   return (
-    <View style={styles.container}>
-      <LottieAnimation 
-        onAnimationFinish={() => {
-          // Handle animation finish, navigate to the home screen
-        }}
-      />
-    </View>
+    <ReduxProvider store={store}>
+      <PaperProvider>
+        <Navigation />
+      </PaperProvider>
+    </ReduxProvider>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
-
 export default App;
-

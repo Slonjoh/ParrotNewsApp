@@ -9,7 +9,7 @@
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@android:color/transparent</item>
         <!-- fOr a solid color -->
-        <!-- <item name="android:windowBackground">@color/your_splash_color</item> -->
+        <!-- <item name="android:windowBackground">@color/my_splash_color</item> -->
     </style>
 
 </resources>

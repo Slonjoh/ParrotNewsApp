@@ -10,7 +10,7 @@ import com.facebook.react.defaults.DefaultReactActivityDelegate
 class MainActivity : ReactActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        SplashScreen.show(this) // Show splash screen before loading the React instance
+        // SplashScreen.show(this) // Show splash screen before loading the React instance
         super.onCreate(savedInstanceState)
     }
 
