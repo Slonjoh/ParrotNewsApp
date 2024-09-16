@@ -4,7 +4,11 @@ import rootReducer from '../reducers/';
 
 const store = configureStore({
     reducer: rootReducer,
-    // Middleware is automatically added, including redux-thunk
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        immutableCheck: false,
+        serializableCheck: false,
+      }),
   });
 
 export default store;
