@@ -16,6 +16,9 @@ const StoryCard = memo(({ item, openStory, isRead }) => (
       <Paragraph>Score: {item.score}</Paragraph>
     </Card.Content>
   </Card>
-));
+), (prevProps, nextProps) => {
+  // Only re-render if `isRead` or `item` changes
+  return prevProps.isRead === nextProps.isRead && prevProps.item.id === nextProps.item.id;
+});
 
 export default StoryCard;

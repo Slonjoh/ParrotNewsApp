@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert } from 'react-native';
-import { FlatList, ActivityIndicator, View, Linking } from 'react-native';
+import { Alert, FlatList, ActivityIndicator, View, Linking } from 'react-native';
 import StoryCard from './StoryCard'; // Import the memoized component
 import { useDispatch, useSelector } from 'react-redux';
 import { setTopStories, markStoryAsRead } from '../actions/storyActions';
@@ -101,6 +100,10 @@ const HomeScreen = () => {
       )}
       onEndReached={loadMoreStories}
       onEndReachedThreshold={0.5}
+      initialNumToRender={7}
+      windowSize={11}
+      maxToRenderPerBatch={5}
+      removeClippedSubviews={true}
       ListFooterComponent={loading ? <ActivityIndicator size="large" /> : null}
     />
   );
