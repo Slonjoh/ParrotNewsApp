@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
 import { FlatList, ActivityIndicator, View, Linking } from 'react-native';
-import { Card, Title, Paragraph } from 'react-native-paper';
+import StoryCard from './StoryCard'; // Import the memoized component
 import { useDispatch, useSelector } from 'react-redux';
-import { setTopStories } from '../actions/storyActions';
+import { setTopStories, markStoryAsRead } from '../actions/storyActions';
 
 const HomeScreen = () => {
   const [loading, setLoading] = useState(true);
@@ -11,6 +12,8 @@ const HomeScreen = () => {
   const [storyIds, setStoryIds] = useState([]); // Store story IDs to paginate
   const dispatch = useDispatch();
   const topStories = useSelector(state => state.stories.topStories);
+  const readStories = useSelector(state => state.stories.readStories);
+
 
   useEffect(() => {
     fetchStoryIds();
@@ -30,6 +33,7 @@ const HomeScreen = () => {
       setStoryIds(ids);
     } catch (error) {
       console.error(error);
+      Alert.alert('Error', 'Failed to load stories.');
       setLoading(false);
     }
   };
@@ -50,8 +54,12 @@ const HomeScreen = () => {
         })
       );
 
+      const uniqueStories = stories.filter(
+        (story) => !topStories.some((existingStory) => existingStory.id === story.id)
+      );
+
       // Append new stories to the existing stories in Redux store
-      dispatch(setTopStories([...topStories, ...stories]));
+      dispatch(setTopStories([...topStories, ...uniqueStories]));
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -63,9 +71,10 @@ const HomeScreen = () => {
     setPage(prevPage => prevPage + 1);
   };
 
-  const openStory = (url) => {
+  const openStory = (url, id) => {
     if (url) {
       Linking.openURL(url); // Opens the story in the browser
+      dispatch(markStoryAsRead(id)); // Mark the story as read in Redux
     } else {
       console.error("No URL for this story.");
     }
@@ -82,15 +91,13 @@ const HomeScreen = () => {
   return (
     <FlatList
       data={topStories}
-      keyExtractor={(item) => item.id.toString()}
+      keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
       renderItem={({ item }) => (
-        <Card style={{ margin: 10 }} onPress={() => openStory(item.url)}>
-          <Card.Content>
-            <Title>{item.title}</Title>
-            <Paragraph>By {item.by}</Paragraph>
-            <Paragraph>Score: {item.score}</Paragraph>
-          </Card.Content>
-        </Card>
+        <StoryCard 
+          item={item} 
+          openStory={openStory} 
+          isRead={readStories.includes(item.id)} // Determine if the story is read
+        />
       )}
       onEndReached={loadMoreStories}
       onEndReachedThreshold={0.5}

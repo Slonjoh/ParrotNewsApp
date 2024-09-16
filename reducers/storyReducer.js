@@ -2,6 +2,7 @@ import { SET_TOP_STORIES } from '../actions/storyActions';
 
 const initialState = {
   topStories: [],
+  readStories: [],
 };
 
 const storyReducer = (state = initialState, action) => {
@@ -11,6 +12,12 @@ const storyReducer = (state = initialState, action) => {
         ...state,
         topStories: action.payload,
       };
+      case 'MARK_STORY_AS_READ':
+        return {
+          ...state,
+          readStories: [...state.readStories, action.payload],
+        };
+
     default:
       return state;
   }
