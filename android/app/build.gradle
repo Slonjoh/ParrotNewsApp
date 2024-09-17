@@ -129,3 +129,8 @@ dependencies {
     }
 }
 
+// Apply vector icons font configuration
+project.ext.vectoricons = [
+    iconFontNames: [ 'MaterialCommunityIcons.ttf' ]
+]
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"

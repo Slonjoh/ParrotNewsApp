@@ -2,14 +2,15 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-// import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './HomeScreen';
 import AboutScreen from './AboutScreen';
 import LoginScreen from './LoginScreen';
+import SignupScreen from './SignupScreen';
 
 
-// const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
+const Stack = createStackNavigator();
 
 // Custom Tab Bar Component
 const MyTabBar = ({ state, descriptors, navigation }) => {
@@ -38,7 +39,7 @@ const MyTabBar = ({ state, descriptors, navigation }) => {
 
         return (
           <TouchableOpacity
-            key={route.key} // Key is passed
+            key={route.key} // Key to filter out children with same id
             onPress={onPress}
             style={{
               flex: 1,
@@ -64,16 +65,27 @@ const MyTabBar = ({ state, descriptors, navigation }) => {
   );
 };
 
+// Stack Navigator for Login and Signup
+const AuthStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Signup" component={SignupScreen} />
+    </Stack.Navigator>
+  );
+};
+
 const Navigation = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator 
         initialRouteName="Home"
-        tabBar={props => <MyTabBar {...props} />} // custom TabBar
+        tabBar={props => <MyTabBar {...props} />} // Custom TabBar
       >
         <Tab.Screen name="News" component={HomeScreen} options={{ tabBarLabel: 'News' }} />
         <Tab.Screen name="AboutMe" component={AboutScreen} options={{ tabBarLabel: 'AboutMe' }} />
-        <Tab.Screen name="Login" component={LoginScreen} options={{ tabBarLabel: 'Login' }} />
+        {/*<Tab.Screen name="Login" component={LoginScreen} options={{ tabBarLabel: 'Login' }} />*/}
+        <Tab.Screen name="Auth" component={AuthStack} options={{ tabBarLabel: 'Login' }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
