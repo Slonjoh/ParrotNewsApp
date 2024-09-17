@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.airbnb.lottie.LottieAnimationView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/splash_animation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_centerInParent="true"
-    android:repeatCount="0"
-    android:scaleType="centerCrop"
-    app:lottie_rawRes="@raw/parrot_animation"
-    app:lottie_autoPlay="true"
-    app:lottie_loop="false" />
+    android:gravity="center"
+    android:background="@android:color/white">
 
+    <!-- Welcome TextView -->
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="50dp" />
+
+    <!-- Lottie Animation View -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/splash_animation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:repeatCount="0"
+        android:scaleType="centerCrop"
+        app:lottie_rawRes="@raw/parrot_animation"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false" />
+
+</RelativeLayout>
